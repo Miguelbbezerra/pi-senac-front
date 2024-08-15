@@ -22,6 +22,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom';
 import { Diversity1 } from '@mui/icons-material';
 import useWindowSize from '../../../useWindowSize';
+import { ClickAwayListener } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -40,6 +41,11 @@ export default function ResponsiveDrawer(props: Props) {
     const [isClosing, setIsClosing] = React.useState(false);
 
     const handleDrawerClose = () => {
+        setIsClosing(true);
+        setMobileOpen(false);
+    };
+
+    const handleClickAway = () => {
         setIsClosing(true);
         setMobileOpen(false);
     };
@@ -86,6 +92,7 @@ export default function ResponsiveDrawer(props: Props) {
     const { width } = useWindowSize();
     
     return (
+        <ClickAwayListener onClickAway={handleClickAway}>
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar
@@ -153,5 +160,6 @@ export default function ResponsiveDrawer(props: Props) {
                 {children}
             </Box>
         </Box>
+        </ClickAwayListener>
     );
 }
