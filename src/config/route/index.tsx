@@ -8,11 +8,13 @@ import Perfil from "../../pages/perfil";
 import Podologo from "../../pages/podologo";
 import FichaAnamnese from "../../pages/fichaAnamnese";
 import PrivateRoute from "./privateRoute";
+import { Institucional } from "../../pages/institucional";
 
 
 export const router = createBrowserRouter(createRoutesFromElements(
     <Route>
         <Route path="/" element={<Login />} />
+        <Route path="/uo-ddos" element={<Institucional />} />
         <Route element={<PrivateRoute redirectTo="/" />}>
             <Route path="/admin" element={<Root />}>
                 <Route path="home" element={<Home />} />
