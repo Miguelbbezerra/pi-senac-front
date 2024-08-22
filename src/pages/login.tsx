@@ -1,15 +1,9 @@
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ImagemLogo from "../images/senac-logo.jpg";
-import { SetItemLocalStorage } from "../helper/localStorage";
 import { useState } from "react";
 import api from "../helper/http";
-
-const defaultTheme = createTheme();
 
 export default function Login() {
   const [redirect, setRedirect] = useState(false);
