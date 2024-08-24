@@ -1,6 +1,6 @@
-import axios, { AxiosResponse, AxiosError } from 'axios';
-import env from '../config/env'
-import { SetItemLocalStorage, GetItemLocalStorage } from './localStorage'
+import axios, { AxiosResponse, AxiosError } from "axios";
+import env from "../config/env";
+import { SetItemLocalStorage, GetItemLocalStorage } from "./localStorage";
 
 // Cria uma instância do axios
 const api = axios.create({
@@ -9,29 +9,34 @@ const api = axios.create({
 
 // Interceptor de requisição
 api.interceptors.request.use((config) => {
-  config.headers['Content-Type'] = 'application/json';
-  
-  const token = GetItemLocalStorage('token');
-  if (token) {
-    config.headers['Authorization'] = `Bearer ${token}`;
-  } else {
+  config.headers["Content-Type"] = "application/json";
 
+  const token = GetItemLocalStorage("token");
+  if (token) {
+    config.headers["Authorization"] = `Bearer ${token}`;
+  } else {
   }
-  
+
   return config;
 });
 
 // Interceptor de resposta
-api.interceptors.response.use((response: AxiosResponse) => {
-  if (response.data && response.data.token) {
-    SetItemLocalStorage('token', response.data.token);
+api.interceptors.response.use(
+  (response: AxiosResponse) => {
+    if (response.data && response.data.token) {
+      SetItemLocalStorage("token", response.data.token);
+    }
+
+    return response;
+  },
+  (error: AxiosError) => {
+    // Tratamento de erro
+    const content: any = error.response?.data;
+    return Promise.reject({
+      status: error.response?.status,
+      message: content?.message,
+    });
   }
-  
-  return response;
-}, (error: AxiosError) => {
-  // Tratamento de erro
-  return Promise.reject(error);
-});
+);
 
 export default api;
- 
