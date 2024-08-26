@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import ImagemLogo from "../images/senac-logo.jpg";
 import { useState } from "react";
 import api from "../helper/http";
-import SnackBar from "../components/layout/core/snackBar";
+import SnackBar, { SnackbarProps } from "../components/layout/core/snackBar";
 
 export default function Login() {
   const [redirect, setRedirect] = useState(false);
@@ -14,21 +14,30 @@ export default function Login() {
     senha: "",
   });
 
-  const [snackBar, setSnackBar] = useState({
+  const [snackBar, setSnackBar] = useState<SnackbarProps>({
     open: false,
     message: "",
+    type: "info",
+    handleClose: () => {}
   });
 
   async function Login1() {
     try {
       const response = await api.post("login", formData);
       console.log("resposta login", response);
+      setSnackBar({
+        ...snackBar,
+        message: 'Bem vindo',
+        open: true,
+        type: 'success'
+      })
       setRedirect(true);
     } catch (error: { status: number; message: string } | any) {
       setSnackBar({
         ...snackBar,
         message: error.message,
-        open: true
+        open: true,
+        type: 'error'
       })
       console.log("response", error);
     }
@@ -74,6 +83,7 @@ export default function Login() {
         handleClose={handleSnackBar}
         open={snackBar.open}
         message={snackBar.message}
+        type={snackBar.type}
       />
       <img src={ImagemLogo} alt="logo do senac" style={{ width: "15em" }} />
       <Box component="form" noValidate>
