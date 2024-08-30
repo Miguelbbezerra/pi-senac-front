@@ -15,8 +15,9 @@ import powerBiAvancado from '../../images/power_bi_avancado.webp';
 import { useEffect, useState } from "react";
 import logo from '../../images/logosenac.svg'
 import { Link } from "react-router-dom";
+import Features from "./Features";
 
-const itemData = [
+const itensGalery = [
     {
         img: `${apiWebPython}`,
         title: 'Cursos Livres . TI',
@@ -156,6 +157,12 @@ const Publicidade = () => {
                 <Grid item lg={12} md={12} sm={12} xs={12}>
                     <Divider sx={{ marginY: '10px' }} />
                 </Grid>
+                <Grid item lg={12} md={12} sm={12} xs={12}>
+                    <Features />
+                </Grid>
+                <Grid item lg={12} md={12} sm={12} xs={12}>
+                    <Divider sx={{ marginY: '10px' }} />
+                </Grid>
                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ marginBottom: '1em', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                     <Typography variant="h6" m={1} sx={{ borderBottom: '1px solid lightgray' }}>Outros Cursos</Typography>
                     <ImageList
@@ -164,7 +171,7 @@ const Publicidade = () => {
                             height: 550,
                         }}
                     >
-                        {itemData.map((item, index) => {
+                        {itensGalery.map((item, index) => {
 
                             const cols = windowSize.width <= 899 ? 2 : 1;
                             const rows = windowSize.width <= 899 ? 2 : 1;
